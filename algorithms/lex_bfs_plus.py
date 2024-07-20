@@ -55,9 +55,9 @@ def lex_bfs_plus(graph: Graph, n: int, tie_breaking_order: List[int]) -> List[in
     """
         Performs the lexBFS+ algorithm on a graph using:
 
-        - tie_breaking_order order as the tie-breaking rule
+        - tie_breaking_order order as the tie-breaking rule (rightmost vertex wins)
 
-        - last vertex from tie_breaking_order as the starting vertex
+        - rightmost vertex from tie_breaking_order as the starting vertex
 
         This implementation uses partition refinement, to find the lexBFS+ search order in linear time.
 

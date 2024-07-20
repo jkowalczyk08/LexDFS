@@ -26,7 +26,7 @@ def simple_lex_bfs_plus(graph: Graph, n: int, tie_breaking_order: List[int]) -> 
 
         - tie_breaking_order order of vertices as the tie-breaking rule (rightmost vertex wins)
 
-        - last vertex from tie_breaking_order as the starting vertex
+        - rightmost last vertex from tie_breaking_order as the starting vertex
 
         This implementation is in no way optimal. It's just used for testing.
 
