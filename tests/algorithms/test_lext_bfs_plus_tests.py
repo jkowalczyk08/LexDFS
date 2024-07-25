@@ -63,6 +63,6 @@ class Test(TestCase):
         graph = Graph(n)
         build_test_graph(graph)
         for i in range(10):
-            # shuffle_adj_lists(graph)
+            shuffle_adj_lists(graph)
             order = lex_bfs_plus(graph, n, tie_breaking_order)
             self.assertEqual(correct_order, order)

@@ -43,3 +43,18 @@ class Graph:
 
     def __str__(self) -> str:
         return str(self.adj_list)
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, Graph):
+            return NotImplemented
+
+        if self.n != other.n:
+            return False
+
+        for u in range(self.n):
+            self_neighbours = self.adj_list[u]
+            other_neighbours = other.adj_list[u]
+            if set(self_neighbours) != set(other_neighbours):
+                return False
+
+        return True
