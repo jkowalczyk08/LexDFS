@@ -32,4 +32,4 @@ class Test(TestCase):
         expected_tree.add_edge(2, 6)
         expected_tree.add_edge(6, 7)
 
-        self.assertEqual(tree, expected_tree)
+        self.assertEqual(expected_tree, tree)
