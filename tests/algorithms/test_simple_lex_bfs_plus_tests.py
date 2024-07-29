@@ -3,6 +3,7 @@ from unittest import TestCase
 
 from algorithms.simple_lex_bfs_plus import simple_lex_bfs_plus
 from model.graph import Graph
+from tests.helpers.shuffle_helper import shuffle_adj_lists
 
 
 def build_test_graph(graph: Graph) -> None:
@@ -29,11 +30,6 @@ def build_small_test_graph(graph: Graph) -> None:
     graph.add_edge(4, 1)
     graph.add_edge(3, 1)
     graph.add_edge(1, 0)
-
-
-def shuffle_adj_lists(graph: Graph) -> None:
-    for neighbours in graph.adj_list.values():
-        random.shuffle(neighbours)
 
 
 class Test(TestCase):
