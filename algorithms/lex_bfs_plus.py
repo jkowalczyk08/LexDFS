@@ -23,7 +23,7 @@ def pop_neighbour_from_interval(
     vertices.delete(neighbour_node)
 
 
-def push_to_new_interval_partition(
+def push_to_new_interval(
         vertices: DoublyLinkedList[int],
         intervals: DoublyLinkedList[Interval[int]],
         neighbour_interval_node: Node[Interval[int]],
@@ -39,7 +39,7 @@ def push_to_new_interval_partition(
     return interval_partition_node
 
 
-def push_to_existing_interval_partition(
+def push_to_existing_interval(
         vertices: DoublyLinkedList[int],
         interval_partition_node: Node[Interval[int]],
         neighbour_node: Node[int],
@@ -50,6 +50,43 @@ def push_to_existing_interval_partition(
     vertices.insert_behind(interval_partition_end, neighbour_node)
     interval_partition.end = neighbour_node
     neighbour_state.interval = interval_partition_node
+
+
+def partition_refinement(
+        vertices: DoublyLinkedList[int],
+        intervals: DoublyLinkedList[Interval[int]],
+        vertex_states: Dict[int, VertexState],
+        pivot: List[int]
+):
+    new_intervals: Dict[Node[Interval[int]], Node[Interval[int]]] = {}
+
+    for neighbour in pivot:
+        neighbour_interval_node = vertex_states[neighbour].interval
+        neighbour_node = vertex_states[neighbour].vertex_node
+
+        interval_partition_node = new_intervals.get(neighbour_interval_node, None)
+
+        if neighbour_interval_node.data.is_singleton() and interval_partition_node is None:
+            continue
+
+        pop_neighbour_from_interval(vertices, intervals, neighbour_interval_node, neighbour_node)
+
+        if interval_partition_node is None:
+            interval_partition_node = push_to_new_interval(
+                vertices,
+                intervals,
+                neighbour_interval_node,
+                neighbour_node,
+                vertex_states[neighbour])
+
+            new_intervals[neighbour_interval_node] = interval_partition_node
+
+        else:
+            push_to_existing_interval(
+                vertices,
+                interval_partition_node,
+                neighbour_node,
+                vertex_states[neighbour])
 
 
 def prepare_initial_algorithm_state(
@@ -74,32 +111,26 @@ def prepare_initial_algorithm_state(
     return vertices, intervals, result, vertex_states
 
 
-def find_pivot_and_pop_from_partition(
-        intervals: DoublyLinkedList[Interval[int]],
-        vertices: DoublyLinkedList[int],
-        vertex_states: dict[int, VertexState]
-) -> int:
+def pop_first_from_partition(intervals: DoublyLinkedList[Interval[int]], vertices: DoublyLinkedList[int]) -> int:
     interval_node = intervals.first()
     interval = interval_node.data
 
-    pivot_node = interval.start
-    pivot = pivot_node.data
+    vartex_node = interval.start
+    vertex = vartex_node.data
 
     if interval.is_singleton():
         intervals.delete(interval_node)
     else:
         interval.pop_start()
 
-    vertex_states[pivot].visited = True
-    vertex_states[pivot].interval = None
-    vertices.delete(pivot_node)
+    vertices.delete(vartex_node)
 
-    return pivot
+    return vertex
 
 
-def get_unvisited_neighbours(pivot: int, graph: Graph, vertex_states: Dict[int, VertexState]) -> List[int]:
+def get_unvisited_neighbours(vertex: int, graph: Graph, vertex_states: Dict[int, VertexState]) -> List[int]:
     partition_refinement_pivot: List[int] = []
-    for neighbour in graph.adj_list[pivot]:
+    for neighbour in graph.adj_list[vertex]:
         if vertex_states[neighbour].visited is False:
             partition_refinement_pivot.append(neighbour)
 
@@ -122,42 +153,14 @@ def lex_bfs_plus(graph: Graph, tie_breaking_order: List[int]) -> List[int]:
     vertices, intervals, result, vertex_states = prepare_initial_algorithm_state(graph, tie_breaking_order)
 
     while intervals.is_not_empty():
-        pivot = find_pivot_and_pop_from_partition(intervals, vertices, vertex_states)
-        result.append(pivot)
+        current_vertex = pop_first_from_partition(intervals, vertices)
 
-        partition_refinement_pivot = get_unvisited_neighbours(pivot, graph, vertex_states)
-        new_intervals: Dict[Node[Interval[int]], Node[Interval[int]]] = {}
+        vertex_states[current_vertex].visited = True
+        vertex_states[current_vertex].interval = None
+        result.append(current_vertex)
 
-        for neighbour in partition_refinement_pivot:
-            neighbour_interval_node = vertex_states[neighbour].interval
-            neighbour_node = vertex_states[neighbour].vertex_node
+        pivot = get_unvisited_neighbours(current_vertex, graph, vertex_states)
 
-            interval_partition_node = new_intervals.get(neighbour_interval_node, None)
-
-            if neighbour_interval_node.data.is_singleton() and interval_partition_node is None:
-                continue
-
-            pop_neighbour_from_interval(
-                vertices,
-                intervals,
-                neighbour_interval_node,
-                neighbour_node)
-
-            if interval_partition_node is None:
-                interval_partition_node = push_to_new_interval_partition(
-                    vertices,
-                    intervals,
-                    neighbour_interval_node,
-                    neighbour_node,
-                    vertex_states[neighbour])
-
-                new_intervals[neighbour_interval_node] = interval_partition_node
-
-            else:
-                push_to_existing_interval_partition(
-                    vertices,
-                    interval_partition_node,
-                    neighbour_node,
-                    vertex_states[neighbour])
+        partition_refinement(vertices, intervals, vertex_states, pivot)
 
     return result

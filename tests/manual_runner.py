@@ -39,7 +39,7 @@ if mode == Mode.ALL or mode == Mode.SIMPLE_LEX_BFS_PLUS:
     print(f'simple_lex_bfs_plus_order: {simple_lex_bfs_plus_order}')
 
 if mode == Mode.ALL or mode == Mode.LEX_BFS_PLUS:
-    lex_bfs_plus_order = lex_bfs_plus(graph, n, tie_breaking_order)
+    lex_bfs_plus_order = lex_bfs_plus(graph, tie_breaking_order)
     print(f'lex_bfs_plus_order: {lex_bfs_plus_order}')
 
 if mode == Mode.ALL:
