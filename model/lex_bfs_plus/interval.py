@@ -10,12 +10,6 @@ class Interval(Generic[T]):
         self.start: Node[T] = start
         self.end: Node[T] = end
 
-    def __str__(self):
-        return f'(start: {self.start}, end: {self.end})'
-
-    def is_singleton(self) -> bool:
-        return self.start == self.end
-
     def pop_start(self):
         self.start = self.start.next
 
@@ -27,3 +21,9 @@ class Interval(Generic[T]):
             self.start = self.start.next
         elif node is self.end:
             self.end = self.end.prev
+
+    def is_singleton(self) -> bool:
+        return self.start == self.end
+
+    def __str__(self):
+        return f'(start: {self.start}, end: {self.end})'

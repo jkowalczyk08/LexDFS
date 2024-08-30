@@ -1,5 +1,6 @@
 from typing import Dict, List
 
+
 class Graph:
     """
     Represents an undirected graph with size n and vertices numbered from 0 to n-1.
@@ -26,7 +27,7 @@ class Graph:
         self.n: int = n
         self.adj_list: Dict[int, List[int]] = {v: [] for v in range(n)}
 
-    def add_edge(self, u: int, v: int):
+    def add_edge(self, u: int, v: int) -> None:
         """Adds an undirected edge between nodes u and v to the graph."""
         self.adj_list[u].append(v)
         self.adj_list[v].append(u)

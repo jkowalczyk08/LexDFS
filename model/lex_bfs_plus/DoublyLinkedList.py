@@ -10,9 +10,6 @@ class DoublyLinkedList(Generic[T]):
         self.head: Optional[Node[T]] = None
         self.tail: Optional[Node[T]] = None
 
-    def is_not_empty(self) -> bool:
-        return self.head is not None
-
     def append(self, node: Node[T]):
         if self.head is None:
             self.head = node
@@ -70,15 +67,18 @@ class DoublyLinkedList(Generic[T]):
         node.next = None
         node.prev = None
 
-    def safe_first(self) -> Node[T]:
+    def first(self) -> Node[T]:
         if self.head is None:
             raise Exception('Empty List')
         return self.head
 
-    def safe_last(self) -> Node[T]:
+    def last(self) -> Node[T]:
         if self.tail is None:
             raise Exception('Empty List')
         return self.tail
+
+    def is_not_empty(self) -> bool:
+        return self.head is not None
 
     def __iter__(self):
         self._current_node = self.head
