@@ -92,11 +92,12 @@ def partition_refinement(
 def prepare_initial_algorithm_state(
         graph: Graph,
         tie_breaking_order: List[int]
-) -> Tuple[DoublyLinkedList[int], DoublyLinkedList[Interval[int]], List[int], Dict[int, VertexState]]:
+) -> Tuple[DoublyLinkedList[int], DoublyLinkedList[Interval[int]], Dict[int, VertexState], List[int], List[bool]]:
 
     vertices: DoublyLinkedList[int] = DoublyLinkedList()
     intervals: DoublyLinkedList[Interval[int]] = DoublyLinkedList()
     result: List[int] = []
+    visited = [False] * graph.n
 
     graph.reorder(tie_breaking_order)
 
@@ -108,10 +109,10 @@ def prepare_initial_algorithm_state(
 
     vertex_states = {node.data: VertexState(initial_interval, node) for node in vertices}
 
-    return vertices, intervals, result, vertex_states
+    return vertices, intervals, vertex_states, result, visited
 
 
-def pop_first_from_partition(intervals: DoublyLinkedList[Interval[int]], vertices: DoublyLinkedList[int]) -> int:
+def pop_first_from_partition(intervals: DoublyLinkedList[Interval[int]], vertices: DoublyLinkedList[int], vertex_states: Dict[int, VertexState]) -> int:
     interval_node = intervals.first()
     interval = interval_node.data
 
@@ -124,14 +125,15 @@ def pop_first_from_partition(intervals: DoublyLinkedList[Interval[int]], vertice
         interval.pop_start()
 
     vertices.delete(vartex_node)
+    vertex_states[vertex].interval = None
 
     return vertex
 
 
-def get_unvisited_neighbours(vertex: int, graph: Graph, vertex_states: Dict[int, VertexState]) -> List[int]:
+def get_unvisited_neighbours(vertex: int, graph: Graph, visited: List[bool]) -> List[int]:
     partition_refinement_pivot: List[int] = []
     for neighbour in graph.adj_list[vertex]:
-        if vertex_states[neighbour].visited is False:
+        if not visited[neighbour]:
             partition_refinement_pivot.append(neighbour)
 
     return partition_refinement_pivot
@@ -150,16 +152,15 @@ def lex_bfs_plus(graph: Graph, tie_breaking_order: List[int]) -> List[int]:
         Returns:
             List[int]: search order of the vertices of the graph
     """
-    vertices, intervals, result, vertex_states = prepare_initial_algorithm_state(graph, tie_breaking_order)
+    vertices, intervals, vertex_states, result, visited = prepare_initial_algorithm_state(graph, tie_breaking_order)
 
     while intervals.is_not_empty():
-        current_vertex = pop_first_from_partition(intervals, vertices)
+        current_vertex = pop_first_from_partition(intervals, vertices, vertex_states)
 
-        vertex_states[current_vertex].visited = True
-        vertex_states[current_vertex].interval = None
+        visited[current_vertex] = True
         result.append(current_vertex)
 
-        pivot = get_unvisited_neighbours(current_vertex, graph, vertex_states)
+        pivot = get_unvisited_neighbours(current_vertex, graph, visited)
 
         partition_refinement(vertices, intervals, vertex_states, pivot)
 
