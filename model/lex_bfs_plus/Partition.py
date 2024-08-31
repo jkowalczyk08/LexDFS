@@ -30,7 +30,7 @@ class Partition:
             interval.pop_start()
 
         self.vertices.delete(vartex_node)
-        self.vertex_states[vertex].interval = None
+        self.vertex_states[vertex].interval_node = None
 
         return vertex
 
@@ -38,7 +38,7 @@ class Partition:
         new_intervals: Dict[Node[Interval[int]], Node[Interval[int]]] = {}
 
         for vertex in pivot:
-            vertex_interval_node = self.vertex_states[vertex].interval
+            vertex_interval_node = self.vertex_states[vertex].interval_node
             vertex_node = self.vertex_states[vertex].vertex_node
 
             new_interval_node = new_intervals.get(vertex_interval_node, None)
@@ -82,7 +82,7 @@ class Partition:
         new_interval_node = Node(Interval(vertex_node, vertex_node))
         self.intervals.insert_before(original_interval_node, new_interval_node)
         self.vertices.insert_before(original_interval_node.data.start, vertex_node)
-        vertex_state.interval = new_interval_node
+        vertex_state.interval_node = new_interval_node
 
         return new_interval_node
 
@@ -96,4 +96,4 @@ class Partition:
         existing_interval_end = existing_interval.end
         self.vertices.insert_behind(existing_interval_end, vertex_node)
         existing_interval.end = vertex_node
-        vertex_state.interval = existing_interval_node
+        vertex_state.interval_node = existing_interval_node
