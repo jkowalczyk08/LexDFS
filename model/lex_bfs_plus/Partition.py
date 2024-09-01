@@ -17,6 +17,9 @@ class Partition:
     def is_not_empty(self) -> bool:
         return self.intervals.is_not_empty()
 
+    def get_vertices(self) -> List[int]:
+        return [vertex.data for vertex in self.vertices]
+
     def pop_first(self) -> int:
         interval_node = self.intervals.first()
         interval = interval_node.data
@@ -62,6 +65,26 @@ class Partition:
                     self.vertex_states[vertex],
                     new_interval_node)
 
+    def order_within_intervals(self, order: List[int]):
+        for vertex in order:
+            vertex_state = self.vertex_states[vertex]
+            vertex_node = vertex_state.vertex_node
+            vertex_interval_node = vertex_state.interval_node
+            vertex_interval = vertex_interval_node.data
+
+            if vertex_interval.is_singleton():
+                continue
+
+            self.__pop_from_interval(vertex_interval_node, vertex_node)
+            self.__append_to_existing_interval(vertex_node, vertex_state, vertex_interval_node)
+
+    def move_to_front(self, vertex_node: Node[int]):
+        vertex_state = self.vertex_states[vertex_node.data]
+        vertex_interval_node = vertex_state.interval_node
+
+        self.__pop_from_interval(vertex_interval_node, vertex_node)
+        self.__prepend_to_existing_interval(vertex_node, vertex_state, self.intervals.first())
+
     def __pop_from_interval(self, interval_node: Node[Interval[int]], vertex_node: Node[int]):
         interval = interval_node.data
 
@@ -96,4 +119,16 @@ class Partition:
         existing_interval_end = existing_interval.end
         self.vertices.insert_behind(existing_interval_end, vertex_node)
         existing_interval.end = vertex_node
+        vertex_state.interval_node = existing_interval_node
+
+    def __prepend_to_existing_interval(
+            self,
+            vertex_node: Node[int],
+            vertex_state: VertexState,
+            existing_interval_node: Node[Interval[int]]
+    ):
+        existing_interval = existing_interval_node.data
+        existing_interval_start = existing_interval.start
+        self.vertices.insert_before(existing_interval_start, vertex_node)
+        existing_interval.start = vertex_node
         vertex_state.interval_node = existing_interval_node
