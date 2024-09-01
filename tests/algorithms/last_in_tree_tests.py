@@ -21,7 +21,7 @@ class Test(TestCase):
 
         order = [0, 1, 7, 5, 6, 2, 4, 3]
 
-        tree = last_in_tree(graph, order, n)
+        tree = last_in_tree(graph, order)
 
         expected_tree = Graph(n)
         expected_tree.add_edge(0, 1)

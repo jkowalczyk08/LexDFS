@@ -11,10 +11,10 @@ def dfs_plus_util(graph: Graph, v: int, visited: List[bool], result: List[int]):
             dfs_plus_util(graph, u, visited, result)
 
 
-def dfs_plus(graph: Graph, n: int, order: List[int]) -> List[int]:
+def dfs_plus(graph: Graph, order: List[int]) -> List[int]:
     graph.reorder(order)
     result: List[int] = []
-    visited = [False] * n
+    visited = [False] * graph.n
     s = order[-1]
     dfs_plus_util(graph, s, visited, result)
 

@@ -4,10 +4,10 @@ from typing import List
 from model.graph import Graph
 
 
-def bfs(graph: Graph, s: int, n: int) -> List[int]:
+def bfs(graph: Graph, s: int) -> List[int]:
     result: List[int] = []
     queue = deque()
-    visited = [False] * n
+    visited = [False] * graph.n
     visited[s] = True
     queue.append(s)
 

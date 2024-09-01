@@ -20,6 +20,6 @@ class Test(TestCase):
 
         expected_order = [0, 1, 2, 3, 5, 7, 6, 4]
 
-        bfs_order = bfs(graph, 0, n)
+        bfs_order = bfs(graph, 0)
 
         self.assertEqual(expected_order, bfs_order)

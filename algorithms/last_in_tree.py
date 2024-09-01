@@ -14,9 +14,9 @@ def find_rightmost_visited_neighbour(neighbours: List[int], positions: List[int]
     return rightmost_visited_neighbour
 
 
-def last_in_tree(graph: Graph, order: List[int], n: int) -> Graph:
-    tree = Graph(n)
-    positions = [-1] * n
+def last_in_tree(graph: Graph, order: List[int]) -> Graph:
+    tree = Graph(graph.n)
+    positions = [-1] * graph.n
 
     for position, vertex in enumerate(order):
         positions[vertex] = position

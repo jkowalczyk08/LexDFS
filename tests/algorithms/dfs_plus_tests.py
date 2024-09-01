@@ -25,5 +25,5 @@ class Test(TestCase):
 
         for i in range(10):
             shuffle_adj_lists(graph)
-            dfs_plus_order = dfs_plus(graph, n, order)
+            dfs_plus_order = dfs_plus(graph, order)
             self.assertEqual(expected_order, dfs_plus_order)
