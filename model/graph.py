@@ -36,8 +36,8 @@ class Graph:
         """Reorders the adjacency list of the graph according to the given order."""
         new_adj_list: Dict[int, List[int]] = {v: [] for v in range(self.n)}
         for u in reversed(order):
-            neighbours = self.adj_list[u]
-            for v in neighbours:
+            neighbors = self.adj_list[u]
+            for v in neighbors:
                 new_adj_list[v].append(u)
 
         self.adj_list = new_adj_list
@@ -53,9 +53,9 @@ class Graph:
             return False
 
         for u in range(self.n):
-            self_neighbours = self.adj_list[u]
-            other_neighbours = other.adj_list[u]
-            if set(self_neighbours) != set(other_neighbours):
+            self_neighbors = self.adj_list[u]
+            other_neighbors = other.adj_list[u]
+            if set(self_neighbors) != set(other_neighbors):
                 return False
 
         return True

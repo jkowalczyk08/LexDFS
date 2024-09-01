@@ -22,11 +22,11 @@ def prepare_initial_algorithm_state(
     return partition, result, visited
 
 
-def get_unvisited_neighbours(vertex: int, graph: Graph, visited: List[bool]) -> List[int]:
+def get_unvisited_neighbors(vertex: int, graph: Graph, visited: List[bool]) -> List[int]:
     partition_refinement_pivot: List[int] = []
-    for neighbour in graph.adj_list[vertex]:
-        if not visited[neighbour]:
-            partition_refinement_pivot.append(neighbour)
+    for neighbor in graph.adj_list[vertex]:
+        if not visited[neighbor]:
+            partition_refinement_pivot.append(neighbor)
 
     return partition_refinement_pivot
 
@@ -52,7 +52,7 @@ def lex_bfs_plus(graph: Graph, tie_breaking_order: List[int]) -> List[int]:
         visited[current_vertex] = True
         result.append(current_vertex)
 
-        pivot = get_unvisited_neighbours(current_vertex, graph, visited)
+        pivot = get_unvisited_neighbors(current_vertex, graph, visited)
 
         partition.refine(pivot)
 
