@@ -4,13 +4,13 @@ from algorithms.simple_lex_something_plus import simple_lex_something_plus
 from model.graph import Graph
 
 
-def lex_bfs_update_strategy(label: str, n: int, i: int) -> str:
-    return label + str(n - i - 1)
+def lex_dfs_update_strategy(label: str, n: int, i: int) -> str:
+    return str(i) + label
 
 
-def simple_lex_bfs_plus(graph: Graph, n: int, tie_breaking_order: List[int]) -> List[int]:
+def simple_lex_dfs_plus(graph: Graph, n: int, tie_breaking_order: List[int]) -> List[int]:
     """
-        Performs the lexBFS+ algorithm on a graph using:
+        Performs the lexDFS+ algorithm on a graph using:
 
         - tie_breaking_order order of vertices as the tie-breaking rule (rightmost vertex wins)
 
@@ -21,4 +21,4 @@ def simple_lex_bfs_plus(graph: Graph, n: int, tie_breaking_order: List[int]) -> 
         Returns:
             List[int]: search order of the vertices of the graph
     """
-    return simple_lex_something_plus(graph, n, tie_breaking_order, lex_bfs_update_strategy)
+    return simple_lex_something_plus(graph, n, tie_breaking_order, lex_dfs_update_strategy)

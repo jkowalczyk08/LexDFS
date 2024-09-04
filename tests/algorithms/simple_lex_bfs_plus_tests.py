@@ -1,4 +1,3 @@
-import random
 from unittest import TestCase
 
 from algorithms.simple_lex_bfs_plus import simple_lex_bfs_plus
