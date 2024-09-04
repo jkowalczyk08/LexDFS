@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic
 
-from model.lex_bfs_plus.node import Node
+from model.partition.node import Node
 
 T = TypeVar('T')
 

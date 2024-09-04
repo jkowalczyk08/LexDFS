@@ -1,5 +1,5 @@
-from model.lex_bfs_plus.interval import Interval
-from model.lex_bfs_plus.node import Node
+from model.partition.interval import Interval
+from model.partition.node import Node
 
 
 class VertexState:

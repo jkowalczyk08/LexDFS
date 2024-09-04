@@ -1,7 +1,7 @@
-from model.lex_bfs_plus.DoublyLinkedList import DoublyLinkedList
-from model.lex_bfs_plus.VertexState import VertexState
-from model.lex_bfs_plus.interval import Interval
-from model.lex_bfs_plus.node import Node
+from model.partition.DoublyLinkedList import DoublyLinkedList
+from model.partition.VertexState import VertexState
+from model.partition.interval import Interval
+from model.partition.node import Node
 from typing import List, Dict
 
 

@@ -2,9 +2,9 @@ from typing import List, Tuple
 from algorithms.bfs import bfs
 from algorithms.dfs_plus import dfs_plus
 from model.graph import Graph
-from model.lex_bfs_plus.DoublyLinkedList import DoublyLinkedList
-from model.lex_bfs_plus.Partition import Partition
-from model.lex_bfs_plus.node import Node
+from model.partition.DoublyLinkedList import DoublyLinkedList
+from model.partition.Partition import Partition
+from model.partition.node import Node
 
 
 def reverse(order: List[int]) -> List[int]:

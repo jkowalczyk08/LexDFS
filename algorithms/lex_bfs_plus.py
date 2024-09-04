@@ -1,8 +1,8 @@
 from typing import List, Tuple
 from model.graph import Graph
-from model.lex_bfs_plus.DoublyLinkedList import DoublyLinkedList
-from model.lex_bfs_plus.Partition import Partition
-from model.lex_bfs_plus.node import Node
+from model.partition.DoublyLinkedList import DoublyLinkedList
+from model.partition.Partition import Partition
+from model.partition.node import Node
 
 
 def prepare_initial_algorithm_state(
