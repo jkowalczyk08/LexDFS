@@ -56,7 +56,6 @@ def ordering(graph: Graph, last_in_tree: Graph, s: int, order: List[int]) -> Lis
     partition.order_within_intervals(reverse(order))
     partition.move_to_front(s_node)
     reversed_vertices = reverse(partition.get_vertices())
-
-    result = dfs_plus(graph, reversed_vertices)
+    result = dfs_plus(last_in_tree, reversed_vertices)
 
     return result

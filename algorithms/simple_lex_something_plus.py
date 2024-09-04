@@ -2,9 +2,9 @@ from typing import List, Dict, Callable
 from model.graph import Graph
 
 
-def largest_unnumbered_label(n: int, label: List[str], is_numbered: List[bool], tie_breaking_order_map: Dict[int, int]) -> int:
+def largest_unnumbered_label(n: int, label: List[List[int]], is_numbered: List[bool], tie_breaking_order_map: Dict[int, int]) -> int:
     max_node = 0
-    max_label = ""
+    max_label: List[int] = []
     for i in range(n):
         if is_numbered[i]:
             continue
@@ -24,7 +24,7 @@ def simple_lex_something_plus(
         graph: Graph,
         n: int,
         tie_breaking_order: List[int],
-        update_strategy: Callable[[str, int, int], str]
+        update_strategy: Callable[[List[int], int, int], List[int]]
 ) -> List[int]:
     """
         Performs the general lexSomething+ algorithm on a graph using:
@@ -39,11 +39,11 @@ def simple_lex_something_plus(
             List[int]: search order of the vertices of the graph
     """
     tie_breaking_order_map = {vertex: position for position, vertex in enumerate(tie_breaking_order)}
-    label = [""] * n
+    label: List[List[int]] = [[] for i in range(n)]
     order = [-1] * n
     is_numbered = [False] * n
     s: int = largest_unnumbered_label(n, label, is_numbered, tie_breaking_order_map)
-    label[s] = str(n)
+    label[s] = [n]
 
     for i in range(n):
         v = largest_unnumbered_label(n, label, is_numbered, tie_breaking_order_map)

@@ -41,7 +41,7 @@ class Test(TestCase):
         correct_order = [0]
         n = 1
         graph = Graph(n)
-        order = simple_lex_dfs_plus(graph, n, tie_breaking_order)
+        order = simple_lex_dfs_plus(graph, tie_breaking_order)
         self.assertEqual(correct_order, order)
 
     def test_simple_lex_dfs_plus_with_small_graph(self):
@@ -52,7 +52,7 @@ class Test(TestCase):
         build_small_test_graph(graph)
         for i in range(10):
             shuffle_adj_lists(graph)
-            order = simple_lex_dfs_plus(graph, n, tie_breaking_order)
+            order = simple_lex_dfs_plus(graph, tie_breaking_order)
             self.assertEqual(correct_order, order)
 
     def test_simple_lex_dfs_plus(self):
@@ -63,5 +63,5 @@ class Test(TestCase):
         build_test_graph(graph)
         for i in range(10):
             shuffle_adj_lists(graph)
-            order = simple_lex_dfs_plus(graph, n, tie_breaking_order)
+            order = simple_lex_dfs_plus(graph, tie_breaking_order)
             self.assertEqual(correct_order, order)

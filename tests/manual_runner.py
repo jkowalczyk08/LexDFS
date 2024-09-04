@@ -4,27 +4,13 @@ from typing import List
 from algorithms.lex_bfs_plus import lex_bfs_plus
 from algorithms.simple_lex_bfs_plus import simple_lex_bfs_plus
 from model.graph import Graph
+from tests.helpers.create_graph_from_file import create_graph_from_file
 
 
 class Mode(Enum):
     ALL = 0,
     SIMPLE_LEX_BFS_PLUS = 1,
     LEX_BFS_PLUS = 2
-
-
-def create_graph_from_file(file_path):
-    with open(file_path, 'r') as file:
-        first_line = file.readline().strip()
-        n, m = map(int, first_line.split())
-
-        graph = Graph(n)
-
-        for _ in range(m):
-            line = file.readline().strip()
-            u, v = map(int, line.split())
-            graph.add_edge(u, v)
-
-    return graph
 
 
 mode: Mode = Mode.ALL
