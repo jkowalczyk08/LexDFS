@@ -22,7 +22,6 @@ def largest_unnumbered_label(n: int, label: List[List[int]], is_numbered: List[b
 
 def simple_lex_something_plus(
         graph: Graph,
-        n: int,
         tie_breaking_order: List[int],
         update_strategy: Callable[[List[int], int, int], List[int]]
 ) -> List[int]:
@@ -38,6 +37,7 @@ def simple_lex_something_plus(
         Returns:
             List[int]: search order of the vertices of the graph
     """
+    n = graph.n
     tie_breaking_order_map = {vertex: position for position, vertex in enumerate(tie_breaking_order)}
     label: List[List[int]] = [[] for i in range(n)]
     order = [-1] * n

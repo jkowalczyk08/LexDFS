@@ -21,4 +21,4 @@ def simple_lex_bfs_plus(graph: Graph, tie_breaking_order: List[int]) -> List[int
         Returns:
             List[int]: search order of the vertices of the graph
     """
-    return simple_lex_something_plus(graph, graph.n, tie_breaking_order, lex_bfs_update_strategy)
+    return simple_lex_something_plus(graph, tie_breaking_order, lex_bfs_update_strategy)
