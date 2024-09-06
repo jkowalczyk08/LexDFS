@@ -1,10 +1,10 @@
-from unittest import TestCase
+import unittest
 
 from algorithms.last_in_tree import last_in_tree
 from model.graph import Graph
 
 
-class Test(TestCase):
+class Test(unittest.TestCase):
     def test_correct_last_in_tree(self):
         n = 8
         graph = Graph(n)
@@ -33,3 +33,7 @@ class Test(TestCase):
         expected_tree.add_edge(6, 7)
 
         self.assertEqual(expected_tree, tree)
+
+
+if __name__ == '__main__':
+    unittest.main()

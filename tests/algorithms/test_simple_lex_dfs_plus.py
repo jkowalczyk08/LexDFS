@@ -1,4 +1,4 @@
-from unittest import TestCase
+import unittest
 
 from algorithms.simple_lex_dfs_plus import simple_lex_dfs_plus
 from model.graph import Graph
@@ -35,7 +35,7 @@ def build_test_graph(graph: Graph) -> None:
     graph.add_edge(8, 10)   # h
     graph.add_edge(9, 10)   # i
 
-class Test(TestCase):
+class Test(unittest.TestCase):
     def test_singleton_graph(self):
         tie_breaking_order = [0]
         correct_order = [0]
@@ -65,3 +65,7 @@ class Test(TestCase):
             shuffle_adj_lists(graph)
             order = simple_lex_dfs_plus(graph, tie_breaking_order)
             self.assertEqual(correct_order, order)
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,9 +1,9 @@
-from unittest import TestCase
+import unittest
 
 from algorithms.bfs import bfs
 from model.graph import Graph
 
-class Test(TestCase):
+class Test(unittest.TestCase):
     def test_correct_bfs(self):
         n = 8
         graph = Graph(n)
@@ -23,3 +23,7 @@ class Test(TestCase):
         bfs_order = bfs(graph, 0)
 
         self.assertEqual(expected_order, bfs_order)
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,5 +1,4 @@
-from unittest import TestCase
-
+import unittest
 from algorithms.simple_lex_bfs_plus import simple_lex_bfs_plus
 from model.graph import Graph
 from tests.helpers.shuffle_helper import shuffle_adj_lists
@@ -31,7 +30,7 @@ def build_small_test_graph(graph: Graph) -> None:
     graph.add_edge(1, 0)
 
 
-class Test(TestCase):
+class Test(unittest.TestCase):
     def test_singleton_graph(self):
         tie_breaking_order = [0]
         correct_order = [0]
@@ -61,3 +60,6 @@ class Test(TestCase):
             shuffle_adj_lists(graph)
             order = simple_lex_bfs_plus(graph, tie_breaking_order)
             self.assertEqual(correct_order, order)
+
+if __name__ == '__main__':
+    unittest.main()

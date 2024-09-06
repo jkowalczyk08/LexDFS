@@ -1,4 +1,5 @@
-from unittest import TestCase
+import unittest
+import os
 
 from algorithms.lex_dfs_plus_on_chordal import lex_dfs_plus_on_chordal
 from algorithms.simple_lex_dfs_plus import simple_lex_dfs_plus
@@ -30,7 +31,7 @@ def build_test_graph(graph: Graph) -> None:
     graph.add_edge(9, 10)   # i
 
 
-class Test(TestCase):
+class Test(unittest.TestCase):
     def test_lex_dfs_plus_from_paper(self):
         tie_breaking_order = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0]
         n = 11
@@ -64,10 +65,17 @@ class Test(TestCase):
         self.__run_test_on_n_nodes(250)
 
     def __run_test_on_n_nodes(self, n: int):
-        graph = create_graph_from_file(f'../chordal_graph_inputs/{n}_nodes.txt')
+        test_dir = os.path.dirname(__file__)
+        input_dir = os.path.join(test_dir, '..', 'chordal_graph_inputs')
+        input_file_path = os.path.join(input_dir, f'{n}_nodes.txt')
+        graph = create_graph_from_file(input_file_path)
         tie_breaking_order = list(range(n))
         for i in range(10):
             shuffle_adj_lists(graph)
             order = lex_dfs_plus_on_chordal(graph, tie_breaking_order)
             correct_order = simple_lex_dfs_plus(graph, tie_breaking_order)
             self.assertEqual(correct_order, order)
+
+
+if __name__ == '__main__':
+    unittest.main()

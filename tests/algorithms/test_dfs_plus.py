@@ -1,11 +1,11 @@
-from unittest import TestCase
+import unittest
 
 from algorithms.dfs_plus import dfs_plus
 from model.graph import Graph
 from tests.helpers.shuffle_helper import shuffle_adj_lists
 
 
-class Test(TestCase):
+class Test(unittest.TestCase):
     def test_correct_dfs_plus(self):
         n = 8
         graph = Graph(n)
@@ -27,3 +27,7 @@ class Test(TestCase):
             shuffle_adj_lists(graph)
             dfs_plus_order = dfs_plus(graph, order)
             self.assertEqual(expected_order, dfs_plus_order)
+
+
+if __name__ == '__main__':
+    unittest.main()

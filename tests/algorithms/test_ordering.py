@@ -1,4 +1,4 @@
-from unittest import TestCase
+import unittest
 
 from algorithms.dfs_plus import dfs_plus
 from algorithms.last_in_tree import last_in_tree
@@ -6,7 +6,7 @@ from algorithms.ordering import ordering
 from model.graph import Graph
 
 
-class Test(TestCase):
+class Test(unittest.TestCase):
     def test_correct_ordering(self):
         n = 8
         graph = Graph(n)
@@ -28,3 +28,7 @@ class Test(TestCase):
         result = ordering(graph, tree, s, dfs_plus_tiebreaking_order)
 
         self.assertEqual(result, order)
+
+
+if __name__ == '__main__':
+    unittest.main()
