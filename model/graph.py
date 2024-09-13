@@ -10,8 +10,8 @@ class Graph:
     n: int
         number of vertices in the graph
 
-    adj_list: Dict[int, List[int]]
-        a dictionary representing the adjacency list of the graph
+    adj_list: List[List[int]]
+        a list representing the adjacency list of the graph
     
     Methods
     -------
@@ -25,7 +25,7 @@ class Graph:
     def __init__(self, n: int) -> None:
         """Initializes the graph with n vertices and an empty adjacency list."""
         self.n: int = n
-        self.adj_list: Dict[int, List[int]] = {v: [] for v in range(n)}
+        self.adj_list: List[List[int]] = [[] for v in range(n)]
 
     def add_edge(self, u: int, v: int) -> None:
         """Adds an undirected edge between nodes u and v to the graph."""
@@ -34,7 +34,7 @@ class Graph:
 
     def reorder(self, order: List[int]) -> None:
         """Reorders the adjacency list of the graph according to the given order."""
-        new_adj_list: Dict[int, List[int]] = {v: [] for v in range(self.n)}
+        new_adj_list: List[List[int]] = [[] for v in range(self.n)]
         for u in reversed(order):
             neighbors = self.adj_list[u]
             for v in neighbors:

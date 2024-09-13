@@ -44,7 +44,9 @@ def lex_bfs_plus(graph: Graph, tie_breaking_order: List[int]) -> List[int]:
         Returns:
             List[int]: search order of the vertices of the graph
     """
-    partition, result, visited = prepare_initial_algorithm_state(graph, tie_breaking_order)
+    partition, result, visited = prepare_initial_algorithm_state(
+        graph,
+        tie_breaking_order)
 
     while partition.is_not_empty():
         current_vertex = partition.pop_first()
