@@ -22,15 +22,11 @@ def __generate_chordal(n: int) -> nx.Graph:
     return chordal_graph
 
 
-def __generate_connected(n: int) -> nx.Graph:
-    graph = nx.erdos_renyi_graph(n, 0.5, seed=123, directed=False)
-    retry_count = 10
-    while retry_count > 0 and not nx.is_connected(graph):
-        graph = nx.erdos_renyi_graph(n, 0.5, seed=123, directed=False)
-        retry_count -= 1
+def __generate_connected(n: int, p: float) -> nx.Graph:
+    graph = nx.erdos_renyi_graph(n, p, seed=123, directed=False)
 
-    if retry_count <= 0:
-        raise GenerationError("Unable to generate connected graphs. Please retry")
+    if not nx.is_connected(graph):
+        raise GenerationError("Unable to generate connected graphs. Please change parameters")
 
     return graph
 
@@ -44,9 +40,9 @@ try:
 except Exception as e:
     pass
 
-for n in [5, 10, 20, 30, 50, 100, 250]:
+for n, p in [(5, 0.6), (10, 0.5), (20, 0.5), (30, 0.4), (50, 0.2), (100, 0.2), (250, 0.2)]:
     chordal_graph = __generate_chordal(n)
-    connected_graph = __generate_connected(n)
+    connected_graph = __generate_connected(n, p)
     chordal_string_representation = __get_internal_string_representation(chordal_graph)
     connected_string_representation = __get_internal_string_representation(connected_graph)
     filename = f'{n}_nodes.txt'
